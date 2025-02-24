@@ -6,14 +6,12 @@
 using namespace std;
 
 //Function Prototypes
-
-
 void showMenu() {
 
 	cout << "\n==== TO-DO LIST MENU =====\n";
 	cout << "1. Add a Task \n";
 	cout << "2. View a task \n";
-	cout << "3. Dekete a task \n";
+	cout << "3. Delete a task \n";
 	cout << "4. Save Tasks \n";
 	cout << "5. Exit\n";
 	cout << "Enter your choice: ";
@@ -47,17 +45,26 @@ void viewTask(const vector<string>& tasks) {
 	}
 }
 void deleteTask(vector<string>& tasks) {
-		
+
+	if (tasks.empty()) {
+		cout << "No tasks to delete!\n";
+		return;
+	}
+
 
 }
 
+void saveTasksToFile(const vector<string>& tasks) {
 
 
-void saveTasksToFile(const vector<string>& tasks);
-void loadTasksFromFile(vector<string>& tasks);
+}
+void loadTasksFromFile(vector<string>& tasks){
 
+
+}
 
 int main() {
+
 	vector<string> tasks; //store tasks in memory
 	loadTasksFromFile(tasks); //load tasks at the start
 
