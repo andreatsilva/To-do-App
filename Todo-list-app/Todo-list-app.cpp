@@ -44,23 +44,70 @@ void viewTask(const vector<string>& tasks) {
 		cout << i + 1 << ". " << tasks[i] << endl;
 	}
 }
+	
 void deleteTask(vector<string>& tasks) {
 
 	if (tasks.empty()) {
 		cout << "No tasks to delete!\n";
 		return;
 	}
+	cout << "\n===Your Tasks===\n";
+	for (size_t i = 0; i < tasks.size();i++) {
+		cout << i + 1 << ". " << tasks[i] << endl;
+	}
+	//ask user for the task number
+	cout << "\nEnter the number of the task you want to delete: \n";
+	int taskNumber;
+	cin >> taskNumber;
 
+	//validate user imput
+
+	if (cin.fail() || taskNumber < 1 || taskNumber > tasks.size()) {
+		cin.clear(); //Clear error flag
+		cin.ignore(numeric_limits<streamsize>::max(), '\n'); //discard bad input
+		cout << "\n===invalid task number!===\n";
+		return;
+	}
+
+	//Erase task from vector
+
+	tasks.erase(tasks.begin() + (taskNumber - 1));
+
+	cout << "\n=== Task deleted ===\n";
 
 }
 
 void saveTasksToFile(const vector<string>& tasks) {
 
-
+	ofstream file("tasks.txt"); //Open the file
+	if (!file) { //checks if the file is opened
+		cout << "Error: Could not open the file...";
+		return;
+	}
+	for (const string& task : tasks) {
+		file << task << endl; //Write each task to the file
+	}
+	file.close();
+	cout << "Tasks Saved";
 }
+
 void loadTasksFromFile(vector<string>& tasks){
 
+	ifstream file("tasks.txt");
 
+	if (!file) {
+		return;
+	}
+	
+	string task;
+	while (getline(file, task)) {//read task line by line
+		if (!task.empty()) { //ignore empty line
+			tasks.push_back(task);
+		}
+	}
+	file.close();
+
+	cout << "tasks loaded\n";
 }
 
 int main() {
